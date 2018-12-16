@@ -15,8 +15,8 @@ namespace AskMe.Data.Models
 
 		public DateTime CreatedAt { get; set; }
 
-		public int UserId { get; set; }
+		public string ApplicationUserId { get; set; }
 
-		public User User { get; set; }
+		public ApplicationUser User { get; set; }
 	}
 }

@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace AskMe.Data.Models
 {
-	public class UserConversation
+	public class ApplicationUserConversation
 	{
-		public int UserId { get; set; }
+		public string ApplicationUserId { get; set; }
 
-		public User User { get; set; }
+		public ApplicationUser User { get; set; }
 
 		public int ConversationId { get; set; }
 

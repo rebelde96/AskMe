@@ -6,19 +6,9 @@ using System.Threading.Tasks;
 
 namespace AskMe.Data.Models
 {
-	public class User
+	public class ApplicationUser : IdentityUser
 	{
-		public int Id { get; set; }
-
-		public string Username { get; set; }
-
-		public string Email { get; set; }
-
-		public string PasswordHash { get; set; }
-
 		public DateTime CreatedAt { get; set; }
-
-		public bool IsEmailVerified { get; set; }
 
 		public UserInfo UserInfo { get; set; }
 
@@ -26,6 +16,6 @@ namespace AskMe.Data.Models
 
 		public ICollection<Message> Messages { get; set; }
 
-		public ICollection<UserConversation> userConversations { get; set; }
+		public ICollection<ApplicationUserConversation> userConversations { get; set; }
 	}
 }

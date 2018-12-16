@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AskMe.Data
 {
-	public class ApplicationContext : DbContext
+	public class ApplicationContext : IdentityDbContext<ApplicationUser>
 	{
 		public DbSet<Category> Categories { get; set; }
 
@@ -16,9 +16,7 @@ namespace AskMe.Data
 
 		public DbSet<Message> Messages { get; set; }
 
-		public DbSet<User> Users { get; set; }
-
-		public DbSet<UserConversation> UserConversations { get; set; }
+		public DbSet<ApplicationUserConversation> ApplicationUserConversations { get; set; }
 
 		public DbSet<UserFile> UserFiles { get; set; }
 
@@ -36,35 +34,37 @@ namespace AskMe.Data
 				.HasForeignKey(m => m.ConversationId)
 				.OnDelete(DeleteBehavior.Cascade);
 
-			modelBuilder.Entity<User>()
+			modelBuilder.Entity<ApplicationUser>()
 				.HasOne(u => u.UserInfo)
 				.WithOne(ui => ui.User)
-				.HasForeignKey<UserInfo>(ui => ui.UserId);
+				.HasForeignKey<UserInfo>(ui => ui.ApplicationUserId);
 
-			modelBuilder.Entity<User>()
+			modelBuilder.Entity<ApplicationUser>()
 				.HasMany(u => u.UserFiles)
 				.WithOne(uf => uf.User)
-				.HasForeignKey(uf => uf.UserId)
+				.HasForeignKey(uf => uf.ApplicationUserId)
 				.OnDelete(DeleteBehavior.Cascade);
 
-			modelBuilder.Entity<User>()
+			modelBuilder.Entity<ApplicationUser>()
 				.HasMany(u => u.Messages)
 				.WithOne(m => m.User)
-				.HasForeignKey(m => m.UserId)
+				.HasForeignKey(m => m.ApplicationUserId)
 				.OnDelete(DeleteBehavior.Cascade);
 
-			modelBuilder.Entity<UserConversation>()
-				   .HasKey(us => new { us.UserId, us.ConversationId });
+			modelBuilder.Entity<ApplicationUserConversation>()
+				   .HasKey(us => new { us.ApplicationUserId, us.ConversationId });
 
-			modelBuilder.Entity<UserConversation>()
+			modelBuilder.Entity<ApplicationUserConversation>()
 				.HasOne(u => u.Conversation)
 				.WithMany(c => c.userConversations)
 				.HasForeignKey(u => u.ConversationId);
 
-			modelBuilder.Entity<UserConversation>()
+			modelBuilder.Entity<ApplicationUserConversation>()
 				.HasOne(c => c.User)
 				.WithMany(u => u.userConversations)
-				.HasForeignKey(c => c.UserId);
+				.HasForeignKey(c => c.ApplicationUserId);
+
+			base.OnModelCreating(modelBuilder);
 		}
 	}
 }

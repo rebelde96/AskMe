@@ -11,6 +11,6 @@ namespace AskMe.Data.Models
 
 		public ICollection<Message> Messages { get; set; }
 
-		public ICollection<UserConversation> userConversations { get; set; }
+		public ICollection<ApplicationUserConversation> userConversations { get; set; }
 	}
 }

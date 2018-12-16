@@ -11,9 +11,9 @@ namespace AskMe.Data.Models
 
 		public string MessageText { get; set; }
 
-		public int UserId { get; set; }
+		public string ApplicationUserId { get; set; }
 
-		public User User { get; set; }
+		public ApplicationUser User { get; set; }
 
 		public int ConversationId { get; set; }
 

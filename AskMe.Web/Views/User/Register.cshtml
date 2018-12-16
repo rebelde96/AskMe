@@ -1,0 +1,10 @@
+﻿@model RegisterViewModel
+
+<div asp-validation-summary="All"></div>
+<form method="POST">
+	<div>Name: <input asp-for="Username" /></div>
+	<div>Email: <input type="email" asp-for="Email" /></div>
+	<div>Password: <input type="password" asp-for="Password" /></div>
+	<div>Confirm password: <input type="password" asp-for="ConfirmPassword" /></div>
+	<input type="submit" />
+</form>
