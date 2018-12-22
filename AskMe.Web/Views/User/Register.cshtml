@@ -1,10 +1,28 @@
 ﻿@model RegisterViewModel
 
-<div asp-validation-summary="All"></div>
-<form method="POST">
-	<div>Name: <input asp-for="Username" /></div>
-	<div>Email: <input type="email" asp-for="Email" /></div>
-	<div>Password: <input type="password" asp-for="Password" /></div>
-	<div>Confirm password: <input type="password" asp-for="ConfirmPassword" /></div>
-	<input type="submit" />
+<form method="post">
+	<fieldset>
+		<legend>Register</legend>
+		<div class="form-group">
+			<label asp-for="Email">Email address</label>
+			<input asp-for="Email" type="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email">
+			<span class="errorMessages" asp-validation-for="Email"></span>
+		</div>
+		<div class="form-group">
+			<label asp-for="Username">Username</label>
+			<input asp-for="Username" class="form-control" placeholder="Enter username">
+			<span class="errorMessages" asp-validation-for="Username"></span>
+		</div>
+		<div class="form-group">
+			<label asp-for="Password">Password</label>
+			<input asp-for="Password" type="password" class="form-control" placeholder="Password">
+			<span class="errorMessages" asp-validation-for="Password"></span>
+		</div>
+		<div class="form-group">
+			<label asp-for="ConfirmPassword">ConfirmPassword</label>
+			<input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Confirm password">
+			<span class="errorMessages" asp-validation-for="ConfirmPassword"></span>
+		</div>
+		<button type="submit" class="btn btn-primary">Register</button>
+	</fieldset>
 </form>

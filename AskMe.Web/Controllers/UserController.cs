@@ -38,28 +38,32 @@ namespace AskMe.Web.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Register(RegisterViewModel model)
 		{
-			var userDto = new CreateUserDTO
+			if (ModelState.IsValid)
 			{
-				Username = model.Username,
-				Email = model.Email,
-				Password = model.Password,
-				ConfirmPassword = model.ConfirmPassword
-			};
-			var result = await this.userService.CreateUser(userDto);
-			if (result.IsSuccessfull == false)
-			{
-				foreach (var error in result.ErrorMessages)
+				var userDto = new CreateUserDTO
 				{
-					ModelState.AddModelError(error, error);
+					Username = model.Username,
+					Email = model.Email,
+					Password = model.Password,
+					ConfirmPassword = model.ConfirmPassword
+				};
+				var result = await this.userService.CreateUser(userDto);
+				if (result.IsSuccessfull == false)
+				{
+					foreach (var error in result.ErrorMessages)
+					{
+						ModelState.AddModelError(error, error);
+					}
+					return this.View(model);
 				}
-				return this.View(model);
+				var loginViewModel = new LoginViewModel
+				{
+					Username = model.Username,
+					Password = model.Password
+				};
+				return await this.Login(loginViewModel);
 			}
-			var loginViewModel = new LoginViewModel
-			{
-				Username = model.Username,
-				Password = model.Password
-			};
-			return await this.Login(loginViewModel);
+			return this.View(model);
 		}
 
 		[HttpGet]
