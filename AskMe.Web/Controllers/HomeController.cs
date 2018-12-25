@@ -8,8 +8,7 @@ using AskMe.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 
 namespace AskMe.Web.Controllers
-{
-	[Authorize(Roles = "Admin")]
+{	
 	public class HomeController : Controller
 	{
 		public IActionResult Index()

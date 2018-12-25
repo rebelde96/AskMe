@@ -76,12 +76,55 @@ namespace AskMe.Web.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Login(LoginViewModel model)
 		{
-			var result = await this.signInManager.PasswordSignInAsync(model.Username,
-				model.Password, model.RememberMe, false);
-			if (result.Succeeded)
+			if (ModelState.IsValid)
 			{
-				return RedirectToAction("Index", "Home");
+				var result = await this.signInManager.PasswordSignInAsync(model.Username,
+				model.Password, model.RememberMe, false);
+				if (result.Succeeded)
+				{
+					return RedirectToAction("Index", "InsideHome");
+				}
+				else
+				{
+					ViewData["WrongDetails"] = "Wrong username or password!";
+				}
 			}
+			return View(model);
+		}
+
+		public IActionResult ForgotPassword()
+		{
+			var model = new ForgotPasswordViewModel();
+			return View(model);
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
+		{
+			var userDto = new CreateUserDTO
+			{
+				Email = model.Email
+			};
+			var result = await userService.RecoverPassword(userDto);
+			ViewData["Send"] = "Email send successfull!";
+			return View(model);
+		}
+		
+		public IActionResult ChangePassword(string id)
+		{
+			var isGuidValid = userService.CheckUserForgotenGuid(id);
+			if (isGuidValid)
+			{
+				ViewData["isGuidValid"] = "true";			
+			}
+			var model = new ChangePasswordViewModel();
+			return View(model);
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> ChangePassword(string id, ChangePasswordViewModel model)
+		{
+			var result = await userService.CreateNewPassword(id, model.Password);
 			return View(model);
 		}
 	}

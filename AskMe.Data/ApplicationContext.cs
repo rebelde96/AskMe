@@ -22,6 +22,10 @@ namespace AskMe.Data
 
 		public DbSet<UserInfo> UserInfos { get; set; }
 
+		public DbSet<ForgotenPassword> ForgotenPasswords { get; set; }
+
+		public DbSet<Ad> Ads { get; set; }
+		
 		public ApplicationContext(DbContextOptions options) : base(options)
 		{
 		}
@@ -50,7 +54,7 @@ namespace AskMe.Data
 				.WithOne(m => m.User)
 				.HasForeignKey(m => m.ApplicationUserId)
 				.OnDelete(DeleteBehavior.Cascade);
-
+					
 			modelBuilder.Entity<ApplicationUserConversation>()
 				   .HasKey(us => new { us.ApplicationUserId, us.ConversationId });
 
@@ -61,8 +65,23 @@ namespace AskMe.Data
 
 			modelBuilder.Entity<ApplicationUserConversation>()
 				.HasOne(c => c.User)
-				.WithMany(u => u.userConversations)
+				.WithMany(u => u.UserConversations)
 				.HasForeignKey(c => c.ApplicationUserId);
+
+			modelBuilder.Entity<ForgotenPassword>()
+				.HasOne(fp => fp.ApplicationUser)
+				.WithMany(au => au.ForgotenPasswords)
+				.HasForeignKey(fp => fp.ApplicationUserId);
+
+			modelBuilder.Entity<Ad>()
+				.HasOne(fp => fp.ApplicationUser)
+				.WithMany(a => a.Ads)
+				.HasForeignKey(fp => fp.ApplicationUserId);
+
+			modelBuilder.Entity<Ad>()
+				.HasOne(c => c.Category)
+				.WithMany(a => a.Ads)
+				.HasForeignKey(c => c.CategoryId);
 
 			base.OnModelCreating(modelBuilder);
 		}

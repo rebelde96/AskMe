@@ -22,24 +22,24 @@ namespace AskMe.Data
 				// dotnet user-secrets set SeedUserPW <pw>
 				// The admin user can do anything
 
-				var userID = await EnsureUser(serviceProvider, testUserPw, "user");
+				var userID = await EnsureUser(serviceProvider, testUserPw, "user", "user@askme.com");
 				await EnsureRole(serviceProvider, userID, Roles.AskMeUserRole);
 
 				// allowed user can create and edit contacts that they create
-				var adminID = await EnsureUser(serviceProvider, testUserPw, "admin");
+				var adminID = await EnsureUser(serviceProvider, testUserPw, "admin", "admin@ask.me");
 				await EnsureRole(serviceProvider, adminID, Roles.AskMeAdminRole);
 			}
 		}
 
 		private static async Task<string> EnsureUser(IServiceProvider serviceProvider,
-													string testUserPw, string UserName)
+													string testUserPw, string UserName, string Email)
 		{
 			var userManager = serviceProvider.GetService<UserManager<ApplicationUser>>();
 
 			var user = await userManager.FindByNameAsync(UserName);
 			if (user == null)
 			{
-				user = new ApplicationUser { UserName = UserName };
+				user = new ApplicationUser { UserName = UserName, Email = Email };
 				await userManager.CreateAsync(user, testUserPw);
 			}
 

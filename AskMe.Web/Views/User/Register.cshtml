@@ -1,6 +1,7 @@
 ﻿@model RegisterViewModel
 
-<form method="post">
+<form method="post" asp-controller="User" asp-action="Register">
+	<div asp-validation-summary="All"></div>
 	<fieldset>
 		<legend>Register</legend>
 		<div class="form-group">

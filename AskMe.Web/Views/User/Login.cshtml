@@ -1,24 +1,26 @@
 ﻿@model LoginViewModel
-
 <form method="post" asp-controller="User" asp-action="Login">
 	<div asp-validation-summary="All"></div>
-
-	<div>
-		<label asp-for="Username"></label>
-		<input asp-for="Username" />
-		<span asp-validation-for="Username"></span>
-	</div>
-
-	<div>
-		<label asp-for="Password"></label>
-		<input asp-for="Password" />
-		<span asp-validation-for="Password"></span>
-	</div>
-
-	<div>
-		<label asp-for="RememberMe"></label>
-		<input asp-for="RememberMe" />
-		<span asp-validation-for="RememberMe"></span>
-	</div>
-	<input type="submit" value="Login" />
+	<fieldset>
+		<legend>Login</legend>
+		<span class="errorMessages">@ViewData["WrongDetails"]</span>
+		<div class="form-group">
+			<label asp-for="Username"></label>
+			<input asp-for="Username" class="form-control" />
+			<span class="errorMessages" asp-validation-for="Username"></span>
+		</div>
+		<div class="form-group">
+			<label asp-for="Password"></label>
+			<input asp-for="Password" class="form-control" type="password" />
+			<span class="errorMessages" asp-validation-for="Password"></span>
+		</div>
+		<div class="form-group">
+			<label asp-for="RememberMe">Remember me</label>
+			<input asp-for="RememberMe" type="checkbox" />
+		</div>
+		<input type="submit" class="btn btn-primary" value="Login" />
+		<div>
+			<a asp-controller="User" asp-action="ForgotPassword" class="alert-link myLink">Forgot password</a>
+		</div>
+	</fieldset>
 </form>  

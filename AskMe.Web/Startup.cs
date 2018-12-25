@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using AskMe.Data;
 using AskMe.Data.Models;
 using AskMe.Services;
+using AskMe.Services.Contracts;
+using AskMe.Services.Implementations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -54,7 +56,7 @@ namespace AskMe.Web
 				// User settings.
 				options.User.AllowedUserNameCharacters =
 				"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
-				options.User.RequireUniqueEmail = false;
+				options.User.RequireUniqueEmail = true;
 			});
 
 			services.ConfigureApplicationCookie(options =>
@@ -71,7 +73,10 @@ namespace AskMe.Web
 
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-			services.AddScoped<IUserService, UserService>();
+			services.AddScoped<IEmailService, EmailService>();
+			services.AddScoped<IUserService, UserService>();		
+			services.AddScoped<IAdService, AdService>();
+			services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -92,7 +97,6 @@ namespace AskMe.Web
 			app.UseCookiePolicy();
 
 			app.UseAuthentication();
-
 			app.UseMvc(routes =>
 			{
 				routes.MapRoute(

@@ -6,14 +6,16 @@ using System.Threading.Tasks;
 
 namespace AskMe.Web.Models
 {
-	public class LoginViewModel
+	public class AddAdViewModel
 	{
 		[Required]
-		public string Username { get; set; }
+		[MaxLength(100)]
+		public string Title { get; set; }
 
 		[Required]
-		public string Password { get; set; }
+		[MaxLength(4000)]
+		public string Description { get; set; }
 
-		public bool RememberMe { get; set; }
+		public int CategoryId { get; set; }
 	}
 }

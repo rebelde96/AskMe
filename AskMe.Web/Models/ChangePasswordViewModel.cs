@@ -6,14 +6,13 @@ using System.Threading.Tasks;
 
 namespace AskMe.Web.Models
 {
-	public class LoginViewModel
+	public class ChangePasswordViewModel
 	{
-		[Required]
-		public string Username { get; set; }
-
 		[Required]
 		public string Password { get; set; }
 
-		public bool RememberMe { get; set; }
+		[Required]
+		[Compare("Password")]
+		public string ConfirmPassword { get; set; }
 	}
 }

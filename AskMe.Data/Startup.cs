@@ -29,7 +29,7 @@ namespace AskMe.Data
 		{
 			services.AddDbContext<ApplicationContext>(ctx =>
 			{
-				ctx.UseSqlServer(Configuration.GetConnectionString("LocalConnection"));
+				ctx.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
 			});
 		}
 

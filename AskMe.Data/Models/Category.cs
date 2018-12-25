@@ -12,5 +12,7 @@ namespace AskMe.Data.Models
 		public string Name { get; set; }
 
 		public DateTime CreatedAt { get; set; }
+
+		public ICollection<Ad> Ads { get; set; }
 	}
 }

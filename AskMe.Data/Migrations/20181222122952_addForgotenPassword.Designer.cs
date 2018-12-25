@@ -4,49 +4,22 @@ using AskMe.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AskMe.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20181222122952_addForgotenPassword")]
+    partial class addForgotenPassword
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("AskMe.Data.Models.Ad", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ApplicationUserId");
-
-                    b.Property<int>("CategoryId");
-
-                    b.Property<DateTime>("CreatedAt");
-
-                    b.Property<string>("Description");
-
-                    b.Property<double>("RatingPoints");
-
-                    b.Property<string>("Title");
-
-                    b.Property<int>("ViewCount");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ApplicationUserId");
-
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("Ads");
-                });
 
             modelBuilder.Entity("AskMe.Data.Models.ApplicationUser", b =>
                 {
@@ -331,18 +304,6 @@ namespace AskMe.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("AskMe.Data.Models.Ad", b =>
-                {
-                    b.HasOne("AskMe.Data.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany("Ads")
-                        .HasForeignKey("ApplicationUserId");
-
-                    b.HasOne("AskMe.Data.Models.Category", "Category")
-                        .WithMany("Ads")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("AskMe.Data.Models.ApplicationUserConversation", b =>

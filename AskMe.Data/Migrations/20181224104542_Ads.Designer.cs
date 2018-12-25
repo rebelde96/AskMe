@@ -4,14 +4,16 @@ using AskMe.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AskMe.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20181224104542_Ads")]
+    partial class Ads
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,7 +27,9 @@ namespace AskMe.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ApplicationUserId");
+                    b.Property<int>("ApplicationUserId");
+
+                    b.Property<string>("ApplicationUserId1");
 
                     b.Property<int>("CategoryId");
 
@@ -41,11 +45,11 @@ namespace AskMe.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationUserId");
+                    b.HasIndex("ApplicationUserId1");
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Ads");
+                    b.ToTable("Ad");
                 });
 
             modelBuilder.Entity("AskMe.Data.Models.ApplicationUser", b =>
@@ -337,7 +341,7 @@ namespace AskMe.Data.Migrations
                 {
                     b.HasOne("AskMe.Data.Models.ApplicationUser", "ApplicationUser")
                         .WithMany("Ads")
-                        .HasForeignKey("ApplicationUserId");
+                        .HasForeignKey("ApplicationUserId1");
 
                     b.HasOne("AskMe.Data.Models.Category", "Category")
                         .WithMany("Ads")

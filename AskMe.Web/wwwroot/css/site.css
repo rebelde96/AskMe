@@ -27,6 +27,17 @@ for details on configuring this project to bundle and minify static web assets. 
 .errorMessages {
 	color: red;
 }
+
+.myLink {
+	color: #222;
+	font-weight: 500;
+}
+
+.jumbotron {
+	background-color: antiquewhite;
+	margin-top: 20px;
+}
+
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
 	/* Hide captions */
