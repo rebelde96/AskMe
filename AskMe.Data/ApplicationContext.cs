@@ -25,7 +25,9 @@ namespace AskMe.Data
 		public DbSet<ForgotenPassword> ForgotenPasswords { get; set; }
 
 		public DbSet<Ad> Ads { get; set; }
-		
+
+		public DbSet<AdRating> AdRatings { get; set; }
+
 		public ApplicationContext(DbContextOptions options) : base(options)
 		{
 		}
@@ -54,19 +56,21 @@ namespace AskMe.Data
 				.WithOne(m => m.User)
 				.HasForeignKey(m => m.ApplicationUserId)
 				.OnDelete(DeleteBehavior.Cascade);
-					
+
 			modelBuilder.Entity<ApplicationUserConversation>()
 				   .HasKey(us => new { us.ApplicationUserId, us.ConversationId });
 
 			modelBuilder.Entity<ApplicationUserConversation>()
 				.HasOne(u => u.Conversation)
 				.WithMany(c => c.userConversations)
-				.HasForeignKey(u => u.ConversationId);
+				.HasForeignKey(u => u.ConversationId)
+				.OnDelete(DeleteBehavior.Cascade);
 
 			modelBuilder.Entity<ApplicationUserConversation>()
 				.HasOne(c => c.User)
 				.WithMany(u => u.UserConversations)
-				.HasForeignKey(c => c.ApplicationUserId);
+				.HasForeignKey(c => c.ApplicationUserId)
+				.OnDelete(DeleteBehavior.Cascade);
 
 			modelBuilder.Entity<ForgotenPassword>()
 				.HasOne(fp => fp.ApplicationUser)
@@ -74,14 +78,24 @@ namespace AskMe.Data
 				.HasForeignKey(fp => fp.ApplicationUserId);
 
 			modelBuilder.Entity<Ad>()
-				.HasOne(fp => fp.ApplicationUser)
+				.HasOne(ap => ap.ApplicationUser)
 				.WithMany(a => a.Ads)
-				.HasForeignKey(fp => fp.ApplicationUserId);
+				.HasForeignKey(ap => ap.ApplicationUserId);
 
 			modelBuilder.Entity<Ad>()
 				.HasOne(c => c.Category)
 				.WithMany(a => a.Ads)
 				.HasForeignKey(c => c.CategoryId);
+
+			modelBuilder.Entity<AdRating>()
+				.HasOne(au => au.ApplicationUser)
+				.WithMany(ar => ar.AdRatings)
+				.HasForeignKey(au => au.ApplicationUserId);
+
+			modelBuilder.Entity<AdRating>()
+				.HasOne(a => a.Ad)
+				.WithMany(ar => ar.AdRatings)
+				.HasForeignKey(a => a.AdId);
 
 			base.OnModelCreating(modelBuilder);
 		}

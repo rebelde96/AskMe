@@ -70,11 +70,11 @@ namespace AskMe.Services
 			return operationResult;
 		}
 
-		public async Task<OperationResult> RecoverPassword(CreateUserDTO dto)
+		public async Task<OperationResult> RecoverPassword(string email)
 		{
 			var operationResult = new OperationResult();
 
-			var user = await userManager.FindByEmailAsync(dto.Email);
+			var user = await userManager.FindByEmailAsync(email);
 			var forgotenPasswordGuid = "";
 			if (user != null)
 			{
@@ -95,7 +95,7 @@ namespace AskMe.Services
 			}
 			var template = builder.ToString();
 			template = template.Replace("${guid}", forgotenPasswordGuid);
-			operationResult = emailService.SendEmail(dto.Email, template, EmailMessagesConstants.EMAIL_SUBJECT);
+			operationResult = emailService.SendEmail(email, template, EmailMessagesConstants.EMAIL_SUBJECT);
 			return operationResult;
 		}
 
@@ -117,7 +117,7 @@ namespace AskMe.Services
 			var userGuid = Guid.Parse(guid);
 			var userForgotenPassword = from fp in appContext.ForgotenPasswords where fp.Id == userGuid select fp;
 			if (userForgotenPassword.Any()) {
-				isGuidValid = userForgotenPassword.FirstOrDefault().ExpireIn.CompareTo(DateTime.UtcNow) > 0;
+				isGuidValid = userForgotenPassword.LastOrDefault().ExpireIn.CompareTo(DateTime.UtcNow) > 0;
 			}
 			return isGuidValid;
 		}

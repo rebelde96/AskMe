@@ -6,16 +6,23 @@ using System.Threading.Tasks;
 
 namespace AskMe.Data.Models
 {
-	public class ForgotenPassword
+	public class AdRating
 	{
-		public Guid Id { get; set; }
+		public int Id { get; set; }
 
-		[Required]
+		public int AdId { get; set; }
+
+		public Ad Ad { get; set; }
+
 		public string ApplicationUserId { get; set; }
 
 		public ApplicationUser ApplicationUser { get; set; }
 
 		[Required]
-		public DateTime ExpireIn { get; set; }
+		[Range(0, 10)]
+		public int RatingPoints { get; set; }
+
+		[Required]
+		public DateTime CreatedAt { get; set; }
 	}
 }

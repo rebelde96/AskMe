@@ -28,6 +28,8 @@ namespace AskMe.Data
 				// allowed user can create and edit contacts that they create
 				var adminID = await EnsureUser(serviceProvider, testUserPw, "admin", "admin@ask.me");
 				await EnsureRole(serviceProvider, adminID, Roles.AskMeAdminRole);
+
+				var categoryID = await EnsureCategory(context, "Teacher");
 			}
 		}
 
@@ -69,6 +71,25 @@ namespace AskMe.Data
 			IR = await userManager.AddToRoleAsync(user, role);
 
 			return IR;
+		}
+
+		private static async Task<int> EnsureCategory(ApplicationContext appContext, string categoryName)
+		{
+			var categoryList = await appContext.Categories.Where(c => c.Name == categoryName).ToListAsync();
+			var category = new Category();
+			if (!categoryList.Any())
+			{
+				category.Name = categoryName;
+				category.CreatedAt = DateTime.UtcNow;
+				await appContext.Categories.AddAsync(category);
+				await appContext.SaveChangesAsync();
+			}
+			else
+			{
+				category = categoryList.FirstOrDefault();
+			}
+
+			return category.Id;
 		}
 	}
 }

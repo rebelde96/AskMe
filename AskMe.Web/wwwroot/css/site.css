@@ -24,18 +24,13 @@ for details on configuring this project to bundle and minify static web assets. 
 	margin: 15px;
 }
 
-.errorMessages {
-	color: red;
-}
-
 .myLink {
 	color: #222;
 	font-weight: 500;
 }
 
-.jumbotron {
-	background-color: antiquewhite;
-	margin-top: 20px;
+.card {
+	margin: 10px;
 }
 
 /* Hide/rearrange for smaller screens */

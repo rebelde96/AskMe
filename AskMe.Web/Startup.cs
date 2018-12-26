@@ -77,6 +77,7 @@ namespace AskMe.Web
 			services.AddScoped<IUserService, UserService>();		
 			services.AddScoped<IAdService, AdService>();
 			services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+			services.AddScoped<ICategoryService, CategoryService>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

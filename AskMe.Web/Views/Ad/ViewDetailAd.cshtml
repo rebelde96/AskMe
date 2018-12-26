@@ -1,0 +1,30 @@
+﻿@model ViewDetailAdViewModel
+
+<fieldset>
+	@if (Model.Ad != null)
+	{
+		<div class="container">
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title">@Model.Ad.Title</h5>
+					<h6 class="card-subtitle mb-2 text-muted">@Model.Ad.Category.Name</h6>
+					<p class="card-text">@Model.Ad.Description</p>
+					<blockquote class="blockquote">
+						<footer class="blockquote-footer">
+							Posted from: <a asp-controller="User" asp-action="ViewUserProfile" class="card-link">@Model.Ad.ApplicationUser.UserName</a>
+						</footer>
+					</blockquote>
+					<a asp-controller="Conversation" asp-action="StartConversation" class="btn btn-primary">Send a message</a>
+					<a asp-controller="Home" asp-action="Index" class="btn btn-primary float-right">Go back</a>
+				</div>
+			</div>
+		</div>
+	}
+	else
+	{
+		<div class="alert alert-dismissible alert-warning">
+			<h4 class="alert-heading">Warning!</h4>
+			<p class="mb-0">It seems like this article is no longer available.</p>
+		</div>
+	}
+</fieldset>

@@ -9,6 +9,7 @@ namespace AskMe.Web.Models
 	public class ForgotPasswordViewModel
 	{
 		[Required]
+		[EmailAddress(ErrorMessage = "Invalid Email Address")]
 		public string Email { get; set; }
 	}
 }

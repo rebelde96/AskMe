@@ -82,7 +82,7 @@ namespace AskMe.Web.Controllers
 				model.Password, model.RememberMe, false);
 				if (result.Succeeded)
 				{
-					return RedirectToAction("Index", "InsideHome");
+					return RedirectToAction("Index", "Home");
 				}
 				else
 				{
@@ -100,12 +100,8 @@ namespace AskMe.Web.Controllers
 
 		[HttpPost]
 		public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
-		{
-			var userDto = new CreateUserDTO
-			{
-				Email = model.Email
-			};
-			var result = await userService.RecoverPassword(userDto);
+		{	
+			var result = await userService.RecoverPassword(model.Email);
 			ViewData["Send"] = "Email send successfull!";
 			return View(model);
 		}

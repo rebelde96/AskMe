@@ -1,9 +1,22 @@
-﻿<div class="jumbotron">
-	<h1 class="display-3">Ask me!</h1>
-	<p class="lead">Welcome to our team.</p>
-	<hr class="my-4">
-	<p>Go look around.</p>
-	<p class="lead">
-		<a class="btn btn-primary btn-lg" asp-controller="Home" asp-action="About" role="button">Learn more</a>
-	</p>
+﻿@{
+	Layout = "_Layout";
+}
+
+@model IndexViewModel
+<div class="row">
+	@foreach (var ad in Model.Ads)
+	{
+		<div class="col-sm-4">
+			<div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+				<div class="card-header">@ad.Category.Name</div>
+				<div class="card-body">
+					<h4 class="card-title">@ad.Title</h4>
+					<p class="card-text">@ad.Description.Substring(0, 80) ...</p>
+					<span class="badge badge-secondary">
+						<a asp-controller="Ad" asp-action="ViewDetailAd"  asp-route-id="@ad.Id">View more</a>
+					</span>
+				</div>
+			</div>
+		</div>
+	}
 </div>

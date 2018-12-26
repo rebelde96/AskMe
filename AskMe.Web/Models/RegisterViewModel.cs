@@ -15,6 +15,7 @@ namespace AskMe.Web.Models
 		public string Username { get; set; }
 
 		[Required]
+		[EmailAddress(ErrorMessage = "Invalid Email Address")]
 		public string Email { get; set; }
 
 		[Required]

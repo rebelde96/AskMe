@@ -14,17 +14,17 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AskMe.Web.Controllers
 {
-	[Authorize]
 	public class AdController : Controller
 	{
-		ApplicationContext appContext;
 		IAdService adService;
+		ICategoryService categoryService;
 
-		public AdController(ApplicationContext appContext,
-			IAdService adService)
+
+		public AdController(IAdService adService,
+			ICategoryService categoryService)
 		{
-			this.appContext = appContext;
 			this.adService = adService;
+			this.categoryService = categoryService;
 		}
 
 		// GET: /<controller>/
@@ -33,16 +33,19 @@ namespace AskMe.Web.Controllers
 			return View();
 		}
 
-		public IActionResult CreateAd()
+		[Authorize]
+		public async Task<IActionResult> CreateAd()
 		{
-			var categories = from c in appContext.Categories orderby c.Name select c;
-			var model = new AddAdViewModel();
+			var categories = await categoryService.GetAll();
+			var model = new CreateAdViewModel { Categories = categories };
 			return View(model);
 		}
 
+		[Authorize]
 		[HttpPost]
-		public async Task<IActionResult> CreateAd(AddAdViewModel model)
+		public async Task<IActionResult> CreateAd(CreateAdViewModel model)
 		{
+			var categories = await categoryService.GetAll();
 			var createAdDTO = new CreateAdDTO
 			{
 				Title = model.Title,
@@ -53,9 +56,18 @@ namespace AskMe.Web.Controllers
 			if (ModelState.IsValid)
 			{
 				var result = await adService.CreateAd(createAdDTO);
-				return this.View();
 			}
+			model.Title = string.Empty;
+			model.Description = string.Empty;
+			model.Categories = categories;
 			return this.View(model);
+		}
+
+		public async Task<IActionResult> ViewDetailAd(int id)
+		{
+			var ad = await adService.GetAd(id);
+			var model = new ViewDetailAdViewModel { Ad = ad };
+			return View(model);
 		}
 	}
 }

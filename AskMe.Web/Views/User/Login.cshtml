@@ -1,6 +1,5 @@
 ﻿@model LoginViewModel
 <form method="post" asp-controller="User" asp-action="Login">
-	<div asp-validation-summary="All"></div>
 	<fieldset>
 		<legend>Login</legend>
 		<span class="errorMessages">@ViewData["WrongDetails"]</span>

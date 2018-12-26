@@ -1,35 +1,27 @@
-﻿@model AddAdViewModel
-@using AskMe.Data;
-@inject ApplicationContext appContext
-@{
-	Layout = "_LayoutInside";
-}
-@{
-	var categories = from c in appContext.Categories orderby c.Name select c;
-}
+﻿@model CreateAdViewModel
+
 <form method="post" asp-controller="Ad" asp-action="CreateAd">
-	<div asp-validation-summary="All"></div>
 	<fieldset>
-		<legend>Add ad</legend>
+		<legend>Create ad</legend>
 		<div class="form-group">
 			<label asp-for="Title">Title</label>
 			<input class="form-control" asp-for="Title">
-			<span class="errorMessages" asp-validation-for="Title"></span>
+			<span class="text-danger" asp-validation-for="Title"></span>
 		</div>
 		<div class="form-group">
 			<label asp-for="Description">Description</label>
 			<textarea class="form-control" asp-for="Description" rows="10"></textarea>
-			<span class="errorMessages" asp-validation-for="Description"></span>
+			<span class="text-danger" asp-validation-for="Description"></span>
 		</div>
 		<div class="form-group">
 			<label asp-for="CategoryId">Category</label>
 			<select class="form-control" asp-for="CategoryId">
-				@foreach (var category in categories)
+				@foreach (var category in Model.Categories)
 				{
 					<option value="@category.Id">@category.Name</option>
 				}
 			</select>
 		</div>
-		<button type="submit" class="btn btn-primary">Add</button>
+		<button type="submit" class="btn btn-primary">Create</button>
 	</fieldset>
 </form>
