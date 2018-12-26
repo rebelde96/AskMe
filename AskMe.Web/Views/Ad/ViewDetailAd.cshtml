@@ -11,7 +11,7 @@
 					<p class="card-text">@Model.Ad.Description</p>
 					<blockquote class="blockquote">
 						<footer class="blockquote-footer">
-							Posted from: <a asp-controller="User" asp-action="ViewUserProfile" class="card-link">@Model.Ad.ApplicationUser.UserName</a>
+							Posted from: <a asp-controller="User" asp-action="ViewUserProfile" asp-route-id="@Model.Ad.ApplicationUser.ApplicationUserId" class="card-link">@Model.Ad.ApplicationUser.UserName</a>
 						</footer>
 					</blockquote>
 					<a asp-controller="Conversation" asp-action="StartConversation" class="btn btn-primary">Send a message</a>

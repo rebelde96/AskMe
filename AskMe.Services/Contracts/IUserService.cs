@@ -13,5 +13,7 @@ namespace AskMe.Services
 		bool CheckUserForgotenGuid(string guid);
 
 		Task<OperationResult> CreateNewPassword(string guid, string newPassword);
+
+		Task<ApplicationUserDTO> GetUser(string guid);
 	}
 }

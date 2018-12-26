@@ -15,6 +15,7 @@ using AskMe.Services.Implementations;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace AskMe.Services
 {
@@ -148,6 +149,42 @@ namespace AskMe.Services
 				}
 			}
 			return operationResult;
+		}
+
+		public async Task<ApplicationUserDTO> GetUser(string userId)
+		{
+			var user = await GetIfUserExist(userId);
+
+			if (user != null)
+			{
+				var applicationUserDTO = new ApplicationUserDTO
+				{
+					ApplicationUserId = user.Id,
+					UserName = user.UserName,
+					PhoneNumber = user.PhoneNumber,
+					CreatedAt = user.CreatedAt,
+					UserInfoDTO = new UserInfoDTO
+					{
+						FirstName = user.UserInfo.FirstName,
+						LastName = user.UserInfo.LastName,
+						Age = user.UserInfo.Age
+					},
+					AdsCount = user.Ads.Count
+				};
+				return applicationUserDTO;
+			}
+
+			return null;
+		}
+
+		private async Task<ApplicationUser> GetIfUserExist(string userId)
+		{
+			var dbUsers = this.appContext.Users.Include(a => a.Ads).Include(ui => ui.UserInfo).Where(au => au.Id == userId);
+			if (dbUsers.Any())
+			{
+				return await dbUsers.FirstOrDefaultAsync();
+			}
+			return null;
 		}
 	}
 }

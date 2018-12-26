@@ -8,6 +8,11 @@ namespace AskMe.Data.Models
 {
 	public class Ad
 	{
+		public Ad()
+		{
+			this.AdRatings = new List<AdRating>();
+		}
+
 		public int Id { get; set; }
 
 		[Required]

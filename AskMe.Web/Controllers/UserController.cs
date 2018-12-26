@@ -100,18 +100,18 @@ namespace AskMe.Web.Controllers
 
 		[HttpPost]
 		public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
-		{	
+		{
 			var result = await userService.RecoverPassword(model.Email);
 			ViewData["Send"] = "Email send successfull!";
 			return View(model);
 		}
-		
+
 		public IActionResult ChangePassword(string id)
 		{
 			var isGuidValid = userService.CheckUserForgotenGuid(id);
 			if (isGuidValid)
 			{
-				ViewData["isGuidValid"] = "true";			
+				ViewData["isGuidValid"] = "true";
 			}
 			var model = new ChangePasswordViewModel();
 			return View(model);
@@ -121,6 +121,13 @@ namespace AskMe.Web.Controllers
 		public async Task<IActionResult> ChangePassword(string id, ChangePasswordViewModel model)
 		{
 			var result = await userService.CreateNewPassword(id, model.Password);
+			return View(model);
+		}
+
+		public async Task<IActionResult> ViewUserProfile(string id)
+		{
+			var user = await userService.GetUser(id);
+			var model = new UserProfileViewModel { ApplicationUserDTO = user };
 			return View(model);
 		}
 	}

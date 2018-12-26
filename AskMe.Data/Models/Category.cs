@@ -8,6 +8,11 @@ namespace AskMe.Data.Models
 {
 	public class Category
 	{
+		public Category()
+		{
+			this.Ads = new List<Ad>();
+		}
+
 		public int Id { get; set; }
 
 		[Required]

@@ -1,0 +1,33 @@
+﻿@model UserProfileViewModel
+
+<fieldset>
+	<div class="container emp-profile">
+		<div class="row">
+			<div class="col-md-4">
+				<div class="profile-img">
+					<img src="#" alt="" />
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="profile-head">
+					<label for="name">Name:</label>
+					<h5 id="name">
+						@Model.ApplicationUserDTO.UserInfoDTO.FirstName @Model.ApplicationUserDTO.UserInfoDTO.LastName
+					</h5>
+					<label for="age">Age:</label>
+					<h5 id="age">
+						@Model.ApplicationUserDTO.UserInfoDTO.Age
+					</h5>
+					<label for="ads">Ads:</label>
+					<h5 id="ads">
+						@Model.ApplicationUserDTO.AdsCount
+					</h5>
+					<label for="createdAt">Join our team on:</label>
+					<h5 id="createdAt">
+						@Model.ApplicationUserDTO.CreatedAt
+					</h5>
+				</div>
+			</div>
+		</div>
+	</div>
+</fieldset>

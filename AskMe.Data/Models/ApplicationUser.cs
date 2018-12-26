@@ -9,6 +9,17 @@ namespace AskMe.Data.Models
 {
 	public class ApplicationUser : IdentityUser
 	{
+		public ApplicationUser()
+		{
+			this.UserInfo = new UserInfo();
+			this.UserFiles = new List<UserFile>();
+			this.Messages = new List<Message>();
+			this.UserConversations = new List<ApplicationUserConversation>();
+			this.ForgotenPasswords = new List<ForgotenPassword>();
+			this.Ads = new List<Ad>();
+			this.AdRatings = new List<AdRating>();
+		}
+
 		[Required]
 		public DateTime CreatedAt { get; set; }
 
