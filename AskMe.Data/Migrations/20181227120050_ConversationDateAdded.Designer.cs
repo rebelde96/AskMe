@@ -4,14 +4,16 @@ using AskMe.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AskMe.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20181227120050_ConversationDateAdded")]
+    partial class ConversationDateAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -162,13 +164,9 @@ namespace AskMe.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AdId");
-
                     b.Property<DateTime>("CreatedAt");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AdId");
 
                     b.ToTable("Conversations");
                 });
@@ -411,14 +409,6 @@ namespace AskMe.Data.Migrations
                     b.HasOne("AskMe.Data.Models.Conversation", "Conversation")
                         .WithMany("userConversations")
                         .HasForeignKey("ConversationId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("AskMe.Data.Models.Conversation", b =>
-                {
-                    b.HasOne("AskMe.Data.Models.Ad", "Ad")
-                        .WithMany()
-                        .HasForeignKey("AdId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

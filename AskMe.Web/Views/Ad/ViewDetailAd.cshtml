@@ -14,7 +14,7 @@
 							Posted from: <a asp-controller="User" asp-action="ViewUserProfile" asp-route-id="@Model.Ad.ApplicationUser.ApplicationUserId" class="card-link">@Model.Ad.ApplicationUser.UserName</a>
 						</footer>
 					</blockquote>
-					<a asp-controller="Conversation" asp-action="StartConversation" class="btn btn-primary">Send a message</a>
+					<a asp-controller="Conversation" asp-action="GetSingleConversation" class="btn btn-primary">Send a message</a>
 					<a asp-controller="Home" asp-action="Index" class="btn btn-primary float-right">Go back</a>
 				</div>
 			</div>
