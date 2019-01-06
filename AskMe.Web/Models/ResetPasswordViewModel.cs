@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AskMe.Web.Models
 {
-	public class ChangePasswordViewModel
+	public class ResetPasswordViewModel
 	{
 		[Required]
 		public string Password { get; set; }

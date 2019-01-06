@@ -53,7 +53,7 @@ namespace AskMe.Data
 
 			modelBuilder.Entity<ApplicationUser>()
 				.HasMany(u => u.Messages)
-				.WithOne(m => m.User)
+				.WithOne(m => m.ApplicationUser)
 				.HasForeignKey(m => m.ApplicationUserId)
 				.OnDelete(DeleteBehavior.Cascade);
 
@@ -67,7 +67,7 @@ namespace AskMe.Data
 				.OnDelete(DeleteBehavior.Cascade);
 
 			modelBuilder.Entity<ApplicationUserConversation>()
-				.HasOne(c => c.User)
+				.HasOne(c => c.ApplicationUser)
 				.WithMany(u => u.UserConversations)
 				.HasForeignKey(c => c.ApplicationUserId)
 				.OnDelete(DeleteBehavior.Cascade);

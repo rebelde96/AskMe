@@ -6,8 +6,10 @@ namespace AskMe.Services.DTOs
 	{
 		public int Id { get; set; }
 
-		public ICollection<MessageDTO> Messages { get; set; }
+        public AdDTO Ad { get; set; }
 
-		public ICollection<ApplicationUserConversationDTO> userConversations { get; set; }
-	}
+        public ICollection<MessageDTO> Messages { get; set; }
+
+        public SendMessageDTO SendMessage { get; set; }
+    }
 }

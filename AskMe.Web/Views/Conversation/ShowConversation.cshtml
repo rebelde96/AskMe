@@ -1,0 +1,33 @@
+﻿@model ShowConversationViewModel
+
+<form method="post" asp-controller="Conversation" asp-action="SendMessage" asp-route-conversationId="@Model.Id" asp-route-adId="@Model.Ad.Id">
+    <div class="form-group">
+        <label asp-for="@Model.SendMessage.MessageText"></label>
+        <textarea class="form-control" asp-for="@Model.SendMessage.MessageText" rows="3"></textarea>
+    </div>
+    <input type="submit" class="btn btn-primary" value="Send" />
+    <div class="container mt-xl-5">
+        @if (Model?.Messages != null)
+        {
+            @foreach (var message in Model.Messages)
+            {
+                if (message.UserName == this.User.Identity.Name)
+                {
+                    <div class="alert alert-success" role="alert">
+                        <h3>@message.UserName</h3>
+                        @message.MessageText
+                        <footer>@message.CreatedAt.ToString("dd/MM/yyyy")</footer>
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-warning text-right" role="alert">
+                        <h3>@message.UserName</h3>
+                        @message.MessageText
+                        <footer>@message.CreatedAt.ToString("dd/MM/yyyy")</footer>
+                    </div>
+                }
+            }
+        }
+    </div>
+</form>

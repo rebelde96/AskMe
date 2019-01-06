@@ -8,7 +8,7 @@ namespace AskMe.Services
 	{
 		Task<OperationResult> CreateUser(CreateUserDTO dto);
 
-		Task<OperationResult> RecoverPassword(string email);
+		Task<OperationResult> RecoverPassword(string email, string pathToFile);
 
 		bool CheckUserForgotenGuid(string guid);
 

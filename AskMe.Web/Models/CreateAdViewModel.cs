@@ -21,6 +21,6 @@ namespace AskMe.Web.Models
 		[Required]
 		public int CategoryId { get; set; }
 
-		public ICollection<CategoryDTO> Categories { get; set; }
+		public ICollection<CategoryViewModel> Categories { get; set; }
 	}
 }

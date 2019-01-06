@@ -7,51 +7,52 @@ using Microsoft.AspNetCore.Mvc;
 using AskMe.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using AskMe.Services.Contracts;
+using AutoMapper;
 
 namespace AskMe.Web.Controllers
 {
-	public class HomeController : Controller
-	{
-		private readonly IAdService adService;
+    public class HomeController : Controller
+    {
+        private readonly IAdService adService;
+        private readonly IMapper mapper;
 
-		public HomeController(IAdService adService)
-		{
-			this.adService = adService;
-		}
+        public HomeController(IAdService adService,
+            IMapper mapper)
+        {
+            this.adService = adService;
+            this.mapper = mapper;
+        }
 
-		public async Task<IActionResult> Index()
-		{
-			var serviceResult = await this.adService.GetAll();
-			var viewModel = new IndexViewModel
-			{
-				Ads = serviceResult
-			};
-			return View(viewModel);
-		}
+        public async Task<IActionResult> Index()
+        {
+            var adDTOs = await this.adService.GetAll();
+            var viewModel = this.mapper.Map<List<IndexViewModel>>(adDTOs);
+            return View(viewModel);
+        }
 
-		public IActionResult About()
-		{
-			ViewData["Message"] = "Your application description page.";
+        public IActionResult About()
+        {
+            ViewData["Message"] = "Your application description page.";
 
-			return View();
-		}
+            return View();
+        }
 
-		public IActionResult Contact()
-		{
-			ViewData["Message"] = "Your contact page.";
+        public IActionResult Contact()
+        {
+            ViewData["Message"] = "Your contact page.";
 
-			return View();
-		}
+            return View();
+        }
 
-		public IActionResult Privacy()
-		{
-			return View();
-		}
+        public IActionResult Privacy()
+        {
+            return View();
+        }
 
-		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-		public IActionResult Error()
-		{
-			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-		}
-	}
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+    }
 }

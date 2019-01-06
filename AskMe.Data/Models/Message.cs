@@ -8,6 +8,11 @@ namespace AskMe.Data.Models
 {
 	public class Message
 	{
+        public Message()
+        {
+            this.ApplicationUser = new ApplicationUser();
+        }
+
 		public int Id { get; set; }
 
 		[Required]
@@ -17,7 +22,7 @@ namespace AskMe.Data.Models
 		[Required]
 		public string ApplicationUserId { get; set; }
 
-		public ApplicationUser User { get; set; }
+		public ApplicationUser ApplicationUser { get; set; }
 
 		[Required]
 		public int ConversationId { get; set; }

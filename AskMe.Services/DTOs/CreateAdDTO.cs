@@ -11,5 +11,7 @@ namespace AskMe.Services.DTOs
 		public string Description { get; set; }
 
 		public int CategoryId { get; set; }
+
+        public ICollection<CategoryDTO> Categories { get; set; }
 	}
 }

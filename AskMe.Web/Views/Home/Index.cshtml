@@ -2,9 +2,9 @@
 	Layout = "_Layout";
 }
 
-@model IndexViewModel
+@model ICollection<IndexViewModel>
 <div class="row">
-	@foreach (var ad in Model.Ads)
+	@foreach (var ad in Model)
 	{
 		<div class="col-sm-4">
 			<div class="card text-white bg-primary mb-3" style="max-width: 20rem;">

@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using AutoMapper;
 
 namespace AskMe.Web
 {
@@ -71,6 +72,7 @@ namespace AskMe.Web
 				options.SlidingExpiration = true;
 			});
 
+            services.AddAutoMapper();
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
 			services.AddScoped<IEmailService, EmailService>();
@@ -78,6 +80,7 @@ namespace AskMe.Web
 			services.AddScoped<IAdService, AdService>();
 			services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 			services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IConversationService, ConversationService>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

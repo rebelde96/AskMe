@@ -9,7 +9,7 @@ namespace AskMe.Services.Contracts
 {
 	public interface IAdService
 	{
-		Task<OperationResult> CreateAd(CreateAdDTO createAdDTO);
+		Task<OperationResult> CreateAd(CreateAdDTO createAdDTO, string userId);
 
 		Task<ICollection<AdDTO>> GetAll();
 

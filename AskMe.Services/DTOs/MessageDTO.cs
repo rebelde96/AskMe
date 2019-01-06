@@ -10,9 +10,7 @@ namespace AskMe.Services.DTOs
 
 		public string MessageText { get; set; }
 
-		public string ApplicationUserId { get; set; }
-
-		public int ConversationId { get; set; }
+		public string UserName { get; set; }
 
 		public DateTime CreatedAt { get; set; }
 	}
